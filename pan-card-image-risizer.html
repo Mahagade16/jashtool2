@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-37KYDEY3B5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-37KYDEY3B5');
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional PAN Card & Image Resizer Tool</title>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-color: #dee2e6;
+            --success-color: #28a745;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .tool-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+        }
+        
+        .tool-section:last-child {
+            border-right: none;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 22px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: rgba(74, 107, 255, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .upload-text {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .upload-hint {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        
+        #fileInput, #panFileInput {
+            display: none;
+        }
+        
+        .options {
+            margin-bottom: 20px;
+        }
+        
+        .option-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #3a5ae8;
+            transform: translateY(-2px);
+        }
+        
+        .preview-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        #imagePreview, #panPreview {
+            max-width: 100%;
+            max-height: 300px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .download-btn {
+            background: var(--success-color);
+            display: none;
+            margin-top: 10px;
+        }
+        
+        .download-btn:hover {
+            background: #218838;
+        }
+        
+        .size-info {
+            font-size: 14px;
+            color: var(--light-text);
+            margin-top: 5px;
+        }
+        
+        .pan-specs {
+            background: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .pan-specs h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+        
+        .pan-specs ul {
+            padding-left: 20px;
+        }
+        
+        .pan-specs li {
+            margin-bottom: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--secondary-color);
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .tool-section {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Professional PAN Card & Image Resizer</h1>
+            <p class="subtitle">Resize your images and PAN cards to perfect dimensions in seconds</p>
+        </header>
+        
+        <div class="tool-container">
+            <div class="tool-section">
+                <h2>Image Resizer</h2>
+                
+                <div class="upload-area" id="imageUploadArea">
+                    <div class="upload-icon">📷</div>
+                    <div class="upload-text">Click to upload image</div>
+                    <div class="upload-hint">Supports JPG, PNG, WEBP (Max 5MB)</div>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
+                
+                <div class="options">
+                    <div class="option-group">
+                        <label for="resizeMode">Resize Mode:</label>
+                        <select id="resizeMode">
+                            <option value="percentage">By Percentage</option>
+                            <option value="dimensions">By Dimensions</option>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group" id="percentageGroup">
+                        <label for="resizePercentage">Resize Percentage:</label>
+                        <input type="number" id="resizePercentage" min="1" max="500" value="50">
+                    </div>
+                    
+                    <div class="option-group" id="dimensionsGroup" style="display: none;">
+                        <label for="targetWidth">Target Dimensions:</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="targetWidth" placeholder="Width" min="1" style="flex: 1;">
+                            <input type="number" id="targetHeight" placeholder="Height" min="1" style="flex: 1;">
+                        </div>
+                    </div>
+                    
+                    <div class="option-group" id="customGroup" style="display: none;">
+                        <label for="customSize">Standard Size:</label>
+                        <select id="customSize">
+                            <option value="passport">Passport (35×45 mm)</option>
+                            <option value="aadhaar">Aadhaar (35×35 mm)</option>
+                            <option value="visa">Visa (51×51 mm)</option>
+                            <option value="facebook">Facebook Cover (820×312 px)</option>
+                            <option value="instagram">Instagram Post (1080×1080 px)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="outputFormat">Output Format:</label>
+                        <select id="outputFormat">
+                            <option value="original">Original Format</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WEBP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="quality">Quality (JPEG/WEBP):</label>
+                        <input type="range" id="quality" min="1" max="100" value="85">
+                        <span id="qualityValue">85%</span>
+                    </div>
+                </div>
+                
+                <button id="resizeBtn">Resize Image</button>
+                <div class="spinner" id="imageSpinner"></div>
+                
+                <div class="preview-container">
+                    <div class="preview-title">Resized Image Preview</div>
+                    <img id="imagePreview" alt="Resized image preview">
+                    <div class="size-info" id="imageSizeInfo"></div>
+                    <button class="download-btn" id="downloadImageBtn">Download Resized Image</button>
+                </div>
+            </div>
+            
+            <div class="tool-section">
+                <h2>PAN Card Resizer</h2>
+                
+                <div class="upload-area" id="panUploadArea">
+                    <div class="upload-icon">🆔</div>
+                    <div class="upload-text">Click to upload PAN Card</div>
+                    <div class="upload-hint">Supports JPG, PNG (Max 5MB)</div>
+                    <input type="file" id="panFileInput" accept="image/*">
+                </div>
+                
+                <div class="options">
+                    <div class="option-group">
+                        <label for="panSize">PAN Card Size:</label>
+                        <select id="panSize">
+                            <option value="standard">Standard (35×35 mm)</option>
+                            <option value="passport">Passport Size (35×45 mm)</option>
+                            <option value="aadhaar">Aadhaar Size (35×35 mm)</option>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group" id="panCustomGroup" style="display: none;">
+                        <label for="panCustomWidth">Custom Dimensions (mm):</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="number" id="panCustomWidth" placeholder="Width" min="1" value="35" style="flex: 1;">
+                            <input type="number" id="panCustomHeight" placeholder="Height" min="1" value="35" style="flex: 1;">
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="panDpi">DPI (Print Quality):</label>
+                        <select id="panDpi">
+                            <option value="150">150 DPI (Web/Email)</option>
+                            <option value="300" selected>300 DPI (Standard Print)</option>
+                            <option value="600">600 DPI (High Quality Print)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="panBgColor">Background Color:</label>
+                        <select id="panBgColor">
+                            <option value="white">White</option>
+                            <option value="transparent">Transparent</option>
+                            <option value="lightblue">Light Blue</option>
+                            <option value="lightgray">Light Gray</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button id="resizePanBtn">Resize PAN Card</button>
+                <div class="spinner" id="panSpinner"></div>
+                
+                <div class="preview-container">
+                    <div class="preview-title">Resized PAN Card Preview</div>
+                    <img id="panPreview" alt="Resized PAN card preview">
+                    <div class="size-info" id="panSizeInfo"></div>
+                    <button class="download-btn" id="downloadPanBtn">Download Resized PAN</button>
+                </div>
+                
+                <div class="pan-specs">
+                    <h3>PAN Card Specifications</h3>
+                    <ul>
+                        <li>Standard size: 35mm × 35mm (1.38" × 1.38")</li>
+                        <li>Recommended resolution: 300 DPI for printing</li>
+                        <li>File format: JPEG or PNG</li>
+                        <li>Maximum file size: 100KB for most applications</li>
+                        <li>Background should be plain light colored</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Professional Image Resizer Tool | All images are processed in your browser and not uploaded to any server</p>
+        </footer>
+    </div>
+    
+    <div class="toast" id="toast">Image resized successfully!</div>
+    
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const panFileInput = document.getElementById('panFileInput');
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const panUploadArea = document.getElementById('panUploadArea');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const resizePanBtn = document.getElementById('resizePanBtn');
+        const downloadImageBtn = document.getElementById('downloadImageBtn');
+        const downloadPanBtn = document.getElementById('downloadPanBtn');
+        const imagePreview = document.getElementById('imagePreview');
+        const panPreview = document.getElementById('panPreview');
+        const resizeMode = document.getElementById('resizeMode');
+        const percentageGroup = document.getElementById('percentageGroup');
+        const dimensionsGroup = document.getElementById('dimensionsGroup');
+        const customGroup = document.getElementById('customGroup');
+        const panSize = document.getElementById('panSize');
+        const panCustomGroup = document.getElementById('panCustomGroup');
+        const quality = document.getElementById('quality');
+        const qualityValue = document.getElementById('qualityValue');
+        const imageSpinner = document.getElementById('imageSpinner');
+        const panSpinner = document.getElementById('panSpinner');
+        const toast = document.getElementById('toast');
+        
+        // Event Listeners
+        imageUploadArea.addEventListener('click', () => fileInput.click());
+        panUploadArea.addEventListener('click', () => panFileInput.click());
+        
+        fileInput.addEventListener('change', handleImageUpload);
+        panFileInput.addEventListener('change', handlePanUpload);
+        
+        resizeMode.addEventListener('change', updateResizeUI);
+        panSize.addEventListener('change', updatePanSizeUI);
+        quality.addEventListener('input', updateQualityValue);
+        
+        resizeBtn.addEventListener('click', resizeImage);
+        resizePanBtn.addEventListener('click', resizePanCard);
+        downloadImageBtn.addEventListener('click', downloadResizedImage);
+        downloadPanBtn.addEventListener('click', downloadResizedPan);
+        
+        // Variables to store resized images
+        let resizedImage = null;
+        let resizedPan = null;
+        let originalImage = null;
+        let originalPan = null;
+        
+        // Functions
+        function updateResizeUI() {
+            const mode = resizeMode.value;
+            percentageGroup.style.display = mode === 'percentage' ? 'block' : 'none';
+            dimensionsGroup.style.display = mode === 'dimensions' ? 'block' : 'none';
+            customGroup.style.display = mode === 'custom' ? 'block' : 'none';
+        }
+        
+        function updatePanSizeUI() {
+            panCustomGroup.style.display = panSize.value === 'custom' ? 'block' : 'none';
+        }
+        
+        function updateQualityValue() {
+            qualityValue.textContent = `${quality.value}%`;
+        }
+        
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                showToast('Please select an image file');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('File size should be less than 5MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalImage = new Image();
+                originalImage.onload = function() {
+                    imagePreview.src = event.target.result;
+                    imagePreview.style.display = 'block';
+                    document.getElementById('imageSizeInfo').textContent = 
+                        `Original: ${originalImage.width}×${originalImage.height}px`;
+                    downloadImageBtn.style.display = 'none';
+                };
+                originalImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function handlePanUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                showToast('Please select an image file');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('File size should be less than 5MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalPan = new Image();
+                originalPan.onload = function() {
+                    panPreview.src = event.target.result;
+                    panPreview.style.display = 'block';
+                    document.getElementById('panSizeInfo').textContent = 
+                        `Original: ${originalPan.width}×${originalPan.height}px`;
+                    downloadPanBtn.style.display = 'none';
+                };
+                originalPan.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function resizeImage() {
+            if (!originalImage) {
+                showToast('Please upload an image first');
+                return;
+            }
+            
+            imageSpinner.style.display = 'block';
+            resizeBtn.disabled = true;
+            
+            // Use setTimeout to allow UI to update before heavy processing
+            setTimeout(() => {
+                try {
+                    const mode = resizeMode.value;
+                    let width, height;
+                    
+                    if (mode === 'percentage') {
+                        const percentage = parseInt(document.getElementById('resizePercentage').value) / 100;
+                        width = Math.round(originalImage.width * percentage);
+                        height = Math.round(originalImage.height * percentage);
+                    } 
+                    else if (mode === 'dimensions') {
+                        width = parseInt(document.getElementById('targetWidth').value) || originalImage.width;
+                        height = parseInt(document.getElementById('targetHeight').value) || originalImage.height;
+                    } 
+                    else if (mode === 'custom') {
+                        const customSize = document.getElementById('customSize').value;
+                        switch(customSize) {
+                            case 'passport': width = 413; height = 531; break; // 35×45mm @300dpi
+                            case 'aadhaar': width = 413; height = 413; break;  // 35×35mm @300dpi
+                            case 'visa': width = 602; height = 602; break;     // 51×51mm @300dpi
+                            case 'facebook': width = 820; height = 312; break;
+                            case 'instagram': width = 1080; height = 1080; break;
+                            default: width = originalImage.width; height = originalImage.height;
+                        }
+                    }
+                    
+                    // Create canvas
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(originalImage, 0, 0, width, height);
+                    
+                    // Get output format
+                    const outputFormat = document.getElementById('outputFormat').value;
+                    let mimeType = 'image/jpeg';
+                    if (outputFormat === 'png') mimeType = 'image/png';
+                    else if (outputFormat === 'webp') mimeType = 'image/webp';
+                    else if (originalImage.src.match(/\.png$/i)) mimeType = 'image/png';
+                    else if (originalImage.src.match(/\.webp$/i)) mimeType = 'image/webp';
+                    
+                    // Set quality (only for JPEG/WEBP)
+                    const qualityValue = outputFormat === 'png' ? 1 : parseInt(quality.value) / 100;
+                    
+                    // Convert canvas to data URL
+                    resizedImage = canvas.toDataURL(mimeType, qualityValue);
+                    
+                    // Update preview
+                    imagePreview.src = resizedImage;
+                    document.getElementById('imageSizeInfo').textContent = 
+                        `Resized: ${width}×${height}px (${formatFileSize(resizedImage.length)})`;
+                    downloadImageBtn.style.display = 'block';
+                    
+                    showToast('Image resized successfully!');
+                } catch (error) {
+                    console.error('Error resizing image:', error);
+                    showToast('Error resizing image');
+                } finally {
+                    imageSpinner.style.display = 'none';
+                    resizeBtn.disabled = false;
+                }
+            }, 100);
+        }
+        
+        function resizePanCard() {
+            if (!originalPan) {
+                showToast('Please upload a PAN card image first');
+                return;
+            }
+            
+            panSpinner.style.display = 'block';
+            resizePanBtn.disabled = true;
+            
+            setTimeout(() => {
+                try {
+                    const sizeOption = panSize.value;
+                    let widthMm, heightMm;
+                    
+                    switch(sizeOption) {
+                        case 'standard': widthMm = 35; heightMm = 35; break;
+                        case 'passport': widthMm = 35; heightMm = 45; break;
+                        case 'aadhaar': widthMm = 35; heightMm = 35; break;
+                        case 'custom': 
+                            widthMm = parseInt(document.getElementById('panCustomWidth').value) || 35;
+                            heightMm = parseInt(document.getElementById('panCustomHeight').value) || 35;
+                            break;
+                        default: widthMm = 35; heightMm = 35;
+                    }
+                    
+                    // Convert mm to pixels based on DPI
+                    const dpi = parseInt(document.getElementById('panDpi').value);
+                    const pxPerMm = dpi / 25.4; // 1 inch = 25.4mm
+                    const width = Math.round(widthMm * pxPerMm);
+                    const height = Math.round(heightMm * pxPerMm);
+                    
+                    // Get background color
+                    const bgColor = document.getElementById('panBgColor').value;
+                    let bgStyle = 'white';
+                    if (bgColor === 'transparent') bgStyle = 'rgba(0,0,0,0)';
+                    else if (bgColor === 'lightblue') bgStyle = '#e6f2ff';
+                    else if (bgColor === 'lightgray') bgStyle = '#f0f0f0';
+                    
+                    // Create canvas
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Fill background
+                    ctx.fillStyle = bgStyle;
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    // Calculate aspect ratios
+                    const imgAspect = originalPan.width / originalPan.height;
+                    const targetAspect = width / height;
+                    
+                    let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+                    
+                    if (imgAspect > targetAspect) {
+                        // Image is wider than target - fit to width
+                        drawWidth = width;
+                        drawHeight = width / imgAspect;
+                        offsetY = (height - drawHeight) / 2;
+                    } else {
+                        // Image is taller than target - fit to height
+                        drawHeight = height;
+                        drawWidth = height * imgAspect;
+                        offsetX = (width - drawWidth) / 2;
+                    }
+                    
+                    // Draw image centered on canvas
+                    ctx.drawImage(originalPan, offsetX, offsetY, drawWidth, drawHeight);
+                    
+                    // Convert to JPEG (most PAN card applications prefer JPEG)
+                    resizedPan = canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    // Update preview
+                    panPreview.src = resizedPan;
+                    document.getElementById('panSizeInfo').textContent = 
+                        `Resized: ${width}×${height}px (${widthMm}×${heightMm}mm @ ${dpi}DPI, ${formatFileSize(resizedPan.length)})`;
+                    downloadPanBtn.style.display = 'block';
+                    
+                    showToast('PAN card resized successfully!');
+                } catch (error) {
+                    console.error('Error resizing PAN card:', error);
+                    showToast('Error resizing PAN card');
+                } finally {
+                    panSpinner.style.display = 'none';
+                    resizePanBtn.disabled = false;
+                }
+            }, 100);
+        }
+        
+        function downloadResizedImage() {
+            if (!resizedImage) return;
+            
+            const link = document.createElement('a');
+            link.href = resizedImage;
+            
+            // Determine file extension
+            let extension = 'jpg';
+            if (resizedImage.startsWith('data:image/png')) extension = 'png';
+            else if (resizedImage.startsWith('data:image/webp')) extension = 'webp';
+            
+            link.download = `resized-image.${extension}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function downloadResizedPan() {
+            if (!resizedPan) return;
+            
+            const link = document.createElement('a');
+            link.href = resizedPan;
+            link.download = 'resized-pan-card.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function showToast(message) {
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        function formatFileSize(base64String) {
+            // Calculate approximate file size from base64
+            const sizeInBytes = Math.round(base64String.length * 0.75);
+            if (sizeInBytes < 1024) return `${sizeInBytes} B`;
+            else if (sizeInBytes < 1024 * 1024) return `${(sizeInBytes / 1024).toFixed(1)} KB`;
+            else return `${(sizeInBytes / (1024 * 1024)).toFixed(1)} MB`;
+        }
+        
+        // Initialize UI
+        updateResizeUI();
+        updatePanSizeUI();
+        updateQualityValue();
+    </script>
+</body>
+</html>
